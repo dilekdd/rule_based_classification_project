@@ -1,4 +1,4 @@
-rule_based_classification_project
+***rule_based_classification_project***
 
 A gaming company wants to create new level-based customer definitions (personas) by using certain characteristics of its customers and, based on these new customer definitions, establish segments to estimate how much potential new customers might contribute to the company's revenue on average. 
 
