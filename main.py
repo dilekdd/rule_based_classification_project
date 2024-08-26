@@ -101,5 +101,5 @@ print(f"33 year-old Turkish female who uses ANDROID belongs to the segment {new_
 
 new_user = "FRA_IOS_FEMALE_31_40"
 french_female_segment = agg_df[agg_df["customers_level_based"] == new_user]
-print(f"35 year-old Turkish female who uses ANDROID belongs to the segment {french_female_segment['SEGMENT'].values[0]} and the average income: {french_female_segment['PRICE'].values[0]}")
+print(f"35 year-old French female who uses ANDROID belongs to the segment {french_female_segment['SEGMENT'].values[0]} and the average income: {french_female_segment['PRICE'].values[0]}")
 
