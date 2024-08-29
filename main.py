@@ -13,6 +13,7 @@ df.head()
 df.info()
 
 def quick_overview(df_summary):
+    print(f"Shape Details\n{df_summary.shape}\n")
     print(f"First 5 observations\n{df_summary.head()}\n")
     print(f"Missing values by variables\n{df_summary.isnull().sum()}\n")
     print(f"Descriptive statistics for numerical variables\n{df_summary.describe()}\n")
