@@ -8,6 +8,9 @@ pd.set_option('display.width', 500)
 
 #Question1: Read the persona.csv file and display general information about the data set.
 df = pd.read_csv("datasets/persona.csv")
+df.columns
+df.head()
+df.info()
 
 def quick_overview(df_summary):
     print(f"First 5 observations\n{df_summary.head()}\n")
@@ -50,7 +53,7 @@ df.groupby(["COUNTRY", "SOURCE"]).agg({"PRICE": "mean"})
 #Task2
 #Average income by COUNTRY, SOURCE, SEX, AGE breakdown?
 new_df = df.groupby(["COUNTRY", "SOURCE", "SEX", "AGE"]).agg({"PRICE": "mean"})
-df.head()
+new_df.head()
 
 #Task3
 #Sort the output by PRICE
@@ -101,5 +104,5 @@ print(f"33 year-old Turkish female who uses ANDROID belongs to the segment {new_
 
 new_user = "FRA_IOS_FEMALE_31_40"
 french_female_segment = agg_df[agg_df["customers_level_based"] == new_user]
-print(f"35 year-old Turkish female who uses ANDROID belongs to the segment {french_female_segment['SEGMENT'].values[0]} and the average income: {french_female_segment['PRICE'].values[0]}")
+print(f"35 year-old French female who uses ANDROID belongs to the segment {french_female_segment['SEGMENT'].values[0]} and the average income: {french_female_segment['PRICE'].values[0]}")
 
