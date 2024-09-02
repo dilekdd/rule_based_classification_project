@@ -117,6 +117,8 @@ new_user_segment = agg_df[agg_df["customers_level_based"] == new_user]
 if not new_user_segment.empty:
     segment = new_user_segment["SEGMENT"].values[0]
     average_income = new_user_segment["PRICE"].values[0]
+    print(f"35 year-old French female who uses ANDROID belongs to the segment '{segment}' and the average income is {average_income:.2f}.")
+else:
+    print(f"No segment found for the user: {new_user}")
 
-print(f"35 year-old French female who uses ANDROID belongs to the segment '{segment}' and the average income is {average_income:.2f}.")
 
