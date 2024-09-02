@@ -36,7 +36,7 @@ df["PRICE"].value_counts()
 #Question5: Sales count by COUNTRY?
 df["COUNTRY"].value_counts()
 
-#Question6: Total income by country?
+#Question6: Total price by country?
 df.groupby('COUNTRY')['PRICE'].sum()
 
 #Question7: Sales numbers by SOURCE?
@@ -52,7 +52,7 @@ df.groupby("SOURCE").agg({"PRICE": "mean"})
 df.groupby(["COUNTRY", "SOURCE"]).agg({"PRICE": "mean"})
 
 #Task2
-#Average income by COUNTRY, SOURCE, SEX, AGE breakdown?
+#Average PRICE by COUNTRY, SOURCE, SEX, AGE breakdown?
 new_df = df.groupby(["COUNTRY", "SOURCE", "SEX", "AGE"]).agg({"PRICE": "mean"})
 new_df.head()
 
@@ -70,7 +70,7 @@ agg_df.head(5)
 #Task5
 #Convert the Age variable to a categorical variable and add it to agg_df?
 agg_df["AGE_CAT"] = pd.cut(agg_df["AGE"], bins = [0, 18, 23, 30, 40, 70], labels = ['0_18', '19_23', '24_30', '31_40', '41_70'])
-agg_df.head(5)
+agg_df.head()
 
 #Task6
 # Define new level-based customers (personas) and add them to the data set as variables.
@@ -80,6 +80,8 @@ agg_df.head(5)
 agg_df['customers_level_based'] = agg_df['COUNTRY'].str.upper() + '_' + agg_df['SOURCE'].str.upper() + '_' + agg_df['SEX'].str.upper() + '_' + agg_df['AGE_CAT'].astype(str)
 
 agg_df = agg_df[['customers_level_based', 'PRICE']]
+
+agg_df = agg_df.groupby("customers_level_based").agg({"PRICE": "mean"}).reset_index()
 agg_df.head()
 
 #Task7
@@ -88,8 +90,7 @@ agg_df.head()
 # Describe the segments (Group by according to the segments and get the price mean, max, sum).
 
 agg_df["SEGMENT"] = pd.qcut(agg_df["PRICE"], 4, labels=["D", "C", "B", "A"])
-print(agg_df.tail(5))
-print(agg_df.head(5))
+agg_df.head(5)
 
 segment_analysis = agg_df.groupby("SEGMENT", observed=False).agg({"PRICE": ["mean", "max", "sum"]})
 print(segment_analysis)
@@ -100,10 +101,22 @@ print(segment_analysis)
 
 new_user = "TUR_ANDROID_FEMALE_31_40"
 new_user_segment = agg_df[agg_df["customers_level_based"] == new_user]
-print(f"33 year-old Turkish female who uses ANDROID belongs to the segment {new_user_segment['SEGMENT'].values[0]} and the average income: {new_user_segment['PRICE'].values[0]}")
+
+if not new_user_segment.empty:
+    segment = new_user_segment['SEGMENT'].values[0]
+    average_income = new_user_segment['PRICE'].values[0]
+    print(
+        f"33-year-old Turkish female who uses ANDROID belongs to the segment '{segment}' and the average income is {average_income:.2f}.")
+else:
+    print(f"No segment found for the user: {new_user}")
 
 
 new_user = "FRA_IOS_FEMALE_31_40"
-french_female_segment = agg_df[agg_df["customers_level_based"] == new_user]
-print(f"35 year-old French female who uses ANDROID belongs to the segment {french_female_segment['SEGMENT'].values[0]} and the average income: {french_female_segment['PRICE'].values[0]}")
+new_user_segment = agg_df[agg_df["customers_level_based"] == new_user]
+
+if not new_user_segment.empty:
+    segment = new_user_segment["SEGMENT"].values[0]
+    average_income = new_user_segment["PRICE"].values[0]
+
+print(f"35 year-old French female who uses ANDROID belongs to the segment '{segment}' and the average income is {average_income:.2f}.")
 
